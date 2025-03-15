@@ -217,7 +217,8 @@ public actor StdioTransport: Transport {
             try await withCheckedThrowingContinuation {
                 [weak self] (continuation: CheckedContinuation<Void, Swift.Error>) in
                 guard let self = self else {
-                    continuation.resume(throwing: MCP.Error.internalError("Transport deallocated"))
+                    continuation.resume(
+                        throwing: AethernityMCP.Error.internalError("Transport deallocated"))
                     return
                 }
 
@@ -373,7 +374,8 @@ public actor StdioTransport: Transport {
                 } catch let error as NWError {
                     if !Task.isCancelled {
                         logger.error("Network error occurred", metadata: ["error": "\(error)"])
-                        messageContinuation.finish(throwing: MCP.Error.transportError(error))
+                        messageContinuation.finish(
+                            throwing: AethernityMCP.Error.transportError(error))
                     }
                     break
                 } catch {
