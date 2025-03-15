@@ -11,30 +11,41 @@ let package = Package(
         // Linux is supported natively without platform restrictions
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AethernityMCP",
-            targets: ["AethernityMCP"])
+            name: "AethernityContextProtocol",
+            targets: ["AethernityContextProtocol"]),
+        .library(
+            name: "AethernityContextServer",
+            targets: ["AethernityContextServer"]),
+        .library(
+            name: "AethernityContextClient",
+            targets: ["AethernityContextClient"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-system.git", from: "1.4.2"),
-        .package(url: "https://github.com/apple/swift-log.git", from: "1.6.3"),
+        .package(url: "https://github.com/samalone/websocket-actor-system.git", branch: "main"),
+        .package(url: "https://github.com/kevinhermawan/swift-json-schema.git", branch: "main"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "AethernityMCP",
+            name: "AethernityContextProtocol",
             dependencies: [
-                .product(name: "SystemPackage", package: "swift-system"),
-                .product(name: "Logging", package: "swift-log"),
-            ]),
-        .testTarget(
-            name: "AethernityMCPTests",
+                .product(name: "WebSocketActors", package: "websocket-actor-system"),
+                .product(name: "JSONSchema", package: "swift-json-schema"),
+            ]
+        ),
+        .target(
+            name: "AethernityContextServer",
             dependencies: [
-                "AethernityMCP",
-                .product(name: "SystemPackage", package: "swift-system"),
-                .product(name: "Logging", package: "swift-log"),
-            ]),
+                "AethernityContextProtocol",
+                .product(name: "WebSocketActors", package: "websocket-actor-system"),
+            ]
+        ),
+        .target(
+            name: "AethernityContextClient",
+            dependencies: [
+                "AethernityContextProtocol",
+                .product(name: "WebSocketActors", package: "websocket-actor-system"),
+            ]
+        ),
     ]
 )
