@@ -8,14 +8,15 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
-
+    name: Build and Test (Swift ${{ matrix.swift-version }} on ${{ matrix.os }})
+    
     strategy:
+      fail-fast: false
       matrix:
-        swift-version:
-          - ^6
-
-    name: Build and Test (Swift ${{ matrix.swift-version }})
+        os: [macos-latest, ubuntu-latest]
+        swift-version: [^6]
+    
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
