@@ -177,23 +177,23 @@ public enum ToolError: Error {
     }
 }
 
-/// Resource プロトコル
-/// - リソースは名前、URI、説明、および読み出しメソッドを提供します。
+/// Resource Protocol
+/// - Provides name, URI, description, and methods for reading resource content.
 public protocol Resource: Identifiable, Step, Sendable
 where Input == ResourceReference, Output == ResourceContentData {
 
     associatedtype Input = ResourceReference
 
     associatedtype Output = ResourceContentData
-    /// リソースの一意な名前
+    /// The unique name of the resource
     var name: String { get }
 
-    /// リソースを識別する URI
+    /// The URI that identifies this resource
     var uri: URL { get }
 
     var mimeType: String { get }
 
-    /// リソースの説明（任意）
+    /// Description of the resource (optional)
     var description: String { get }
 }
 
@@ -206,21 +206,21 @@ extension Resource {
 
     public var id: String { "\(name):\(uri)" }
 
-    /// リソースの内容を読み出す
+    /// Reads the content of the resource
     public func read() async throws -> Output {
         let source = ResourceReference(uri: uri, mimeType: mimeType)
         return try await run(source)
     }
 }
 
-/// Prompt プロトコル
-/// - プロンプトは名前、説明、およびプロンプトテンプレートを生成するメソッドを提供します。
+/// Prompt Protocol
+/// - Provides name, description, and methods for generating prompt templates.
 public protocol Prompt: Identifiable, Step, Sendable
 where Input: Codable, Output: Codable & CustomStringConvertible {
-    /// プロンプトの一意な名前
+    /// The unique name of the prompt
     var name: String { get }
 
-    /// プロンプトの説明（任意）
+    /// Description of the prompt (optional)
     var description: String { get }
 }
 

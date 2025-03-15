@@ -1,5 +1,5 @@
 //
-//  Greeter.swift
+//  AethernityContextProtocol.swift
 //  aethernity-mcp-swift-sdk
 //
 //  Created by Denny Aprilio on 2025/02/17.

@@ -82,7 +82,7 @@ public distributed actor AethernityContextActor {
 
     // MARK: - Registration
 
-    /// Tool を登録します。既に同じ名前の Tool が登録されている場合はエラーとします。
+    /// Registers a Tool. Throws an error if a Tool with the same name is already registered.
     public func register(tool: any Tool) {
         guard tools[tool.name] == nil else {
             fatalError("Tool '\(tool.name)' is already registered")
@@ -90,7 +90,7 @@ public distributed actor AethernityContextActor {
         tools[tool.name] = tool
     }
 
-    /// Resource を登録します。既に同じ名前の Resource が登録されている場合はエラーとします。
+    /// Registers a Resource. Throws an error if a Resource with the same name is already registered.
     public func register(resource: any Resource) {
         guard resources[resource.name] == nil else {
             fatalError("Resource '\(resource.name)' is already registered")
@@ -98,7 +98,7 @@ public distributed actor AethernityContextActor {
         resources[resource.name] = resource
     }
 
-    /// Prompt を登録します。既に同じ名前の Prompt が登録されている場合はエラーとします。
+    /// Registers a Prompt. Throws an error if a Prompt with the same name is already registered.
     public func register(prompt: any Prompt) {
         guard prompts[prompt.name] == nil else {
             fatalError("Prompt '\(prompt.name)' is already registered")
@@ -108,34 +108,34 @@ public distributed actor AethernityContextActor {
 
     // MARK: - Retrieval
 
-    /// 名前から登録された Tool を取得します。
+    /// Retrieves a registered Tool by name.
     public func tool(named name: String) -> (any Tool)? {
         return tools[name]
     }
 
-    /// 名前から登録された Resource を取得します。
+    /// Retrieves a registered Resource by name.
     public func resource(named name: String) -> (any Resource)? {
         return resources[name]
     }
 
-    /// 名前から登録された Prompt を取得します。
+    /// Retrieves a registered Prompt by name.
     public func prompt(named name: String) -> (any Prompt)? {
         return prompts[name]
     }
 
     // MARK: - Listing
 
-    /// 登録されている全 Tool を配列で返します。
+    /// Returns an array of all registered Tools.
     public var allTools: [any Tool] {
         return Array(tools.values)
     }
 
-    /// 登録されている全 Resource を配列で返します。
+    /// Returns an array of all registered Resources.
     public var allResources: [any Resource] {
         return Array(resources.values)
     }
 
-    /// 登録されている全 Prompt を配列で返します。
+    /// Returns an array of all registered Prompts.
     public var allPrompts: [any Prompt] {
         return Array(prompts.values)
     }
@@ -148,7 +148,7 @@ extension AethernityContextActor: AethernityContextProtocol {
         capabilities: [String: CapabilityConfig],
         options: RequestOptions?
     ) async throws -> InitializeResponse {
-        // サーバー側の情報および capability を固定値として返す例
+        // Example: Return server information and capabilities as fixed values
         let serverInfo = ServerInfo(name: "AethernityContextActor", version: "1.0")
         let serverCapabilities: [String: CapabilityConfig] = [
             "tools": CapabilityConfig(settings: ["call": "true", "list": "true"]),
