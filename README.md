@@ -17,7 +17,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ngodn/aethernity-mcp-swift-sdk.git", from: "0.3.2.4")
+    .package(url: "https://github.com/ngodn/aethernity-mcp-swift-sdk.git", from: "0.3.3")
 ]
 ```
 
