@@ -2,7 +2,7 @@ import Foundation
 import SystemPackage
 import Testing
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("Stdio Transport Tests")
 struct StdioTransportTests {
@@ -95,7 +95,7 @@ struct StdioTransportTests {
             try await transport.connect()
             #expect(Bool(false), "Expected connect to throw an error")
         } catch {
-            #expect(error is MCP.Error)
+            #expect(error is AethernityMCP.Error)
         }
 
         await transport.disconnect()
@@ -114,7 +114,7 @@ struct StdioTransportTests {
             try await transport.connect()
             #expect(Bool(false), "Expected connect to throw an error")
         } catch {
-            #expect(error is MCP.Error)
+            #expect(error is AethernityMCP.Error)
         }
 
         await transport.disconnect()

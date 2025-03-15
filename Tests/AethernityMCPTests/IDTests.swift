@@ -4,7 +4,7 @@ import class Foundation.JSONDecoder
 import class Foundation.JSONEncoder
 import struct Foundation.UUID
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("ID Tests")
 struct IDTests {

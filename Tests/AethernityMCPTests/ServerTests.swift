@@ -1,7 +1,7 @@
 import Foundation
 import Testing
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("Server Tests")
 struct ServerTests {

@@ -1,8 +1,3 @@
-#if canImport(Darwin)
-import Darwin
-#elseif canImport(Glibc)
-import Glibc
-#endif
 import Logging
 import SystemPackage
 
@@ -10,6 +5,12 @@ import struct Foundation.Data
 import struct Foundation.Date
 import class Foundation.JSONDecoder
 import class Foundation.JSONEncoder
+
+#if canImport(Darwin)
+    import Darwin
+#elseif canImport(Glibc)
+    import Glibc
+#endif
 
 /// Protocol defining the transport layer for MCP communication
 public protocol Transport: Actor {
@@ -279,7 +280,8 @@ public actor StdioTransport: Transport {
             if !connectionContinuationResumed {
                 connectionContinuationResumed = true
                 logger.warning("Connection cancelled")
-                continuation.resume(throwing: MCP.Error.internalError("Connection cancelled"))
+                continuation.resume(
+                    throwing: AethernityMCP.Error.internalError("Connection cancelled"))
             }
         }
 
@@ -293,11 +295,11 @@ public actor StdioTransport: Transport {
 
         public func send(_ message: String) async throws {
             guard isConnected else {
-                throw MCP.Error.internalError("Transport not connected")
+                throw AethernityMCP.Error.internalError("Transport not connected")
             }
 
             guard let data = (message + "\n").data(using: .utf8) else {
-                throw MCP.Error.internalError("Failed to encode message")
+                throw AethernityMCP.Error.internalError("Failed to encode message")
             }
 
             // Use a local actor-isolated variable to track continuation state
@@ -306,7 +308,8 @@ public actor StdioTransport: Transport {
             try await withCheckedThrowingContinuation {
                 [weak self] (continuation: CheckedContinuation<Void, Swift.Error>) in
                 guard let self = self else {
-                    continuation.resume(throwing: MCP.Error.internalError("Transport deallocated"))
+                    continuation.resume(
+                        throwing: AethernityMCP.Error.internalError("Transport deallocated"))
                     return
                 }
 
@@ -321,7 +324,8 @@ public actor StdioTransport: Transport {
                                 if let error = error {
                                     self.logger.error("Send error: \(error)")
                                     continuation.resume(
-                                        throwing: MCP.Error.internalError("Send error: \(error)"))
+                                        throwing: AethernityMCP.Error.internalError(
+                                            "Send error: \(error)"))
                                 } else {
                                     continuation.resume()
                                 }
@@ -390,7 +394,8 @@ public actor StdioTransport: Transport {
             return try await withCheckedThrowingContinuation {
                 [weak self] (continuation: CheckedContinuation<Data, Swift.Error>) in
                 guard let self = self else {
-                    continuation.resume(throwing: MCP.Error.internalError("Transport deallocated"))
+                    continuation.resume(
+                        throwing: AethernityMCP.Error.internalError("Transport deallocated"))
                     return
                 }
 
@@ -400,12 +405,13 @@ public actor StdioTransport: Transport {
                         if !receiveContinuationResumed {
                             receiveContinuationResumed = true
                             if let error = error {
-                                continuation.resume(throwing: MCP.Error.transportError(error))
+                                continuation.resume(
+                                    throwing: AethernityMCP.Error.transportError(error))
                             } else if let content = content {
                                 continuation.resume(returning: content)
                             } else {
                                 continuation.resume(
-                                    throwing: MCP.Error.internalError("No data received"))
+                                    throwing: AethernityMCP.Error.internalError("No data received"))
                             }
                         }
                     }

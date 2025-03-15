@@ -3,7 +3,7 @@ import Testing
 import class Foundation.JSONDecoder
 import class Foundation.JSONEncoder
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("Request Tests")
 struct RequestTests {

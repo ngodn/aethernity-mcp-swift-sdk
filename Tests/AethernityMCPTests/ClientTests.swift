@@ -1,6 +1,6 @@
 import Testing
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("Client Tests")
 struct ClientTests {
@@ -96,7 +96,7 @@ struct ClientTests {
                 #expect(Bool(false), "Expected transport error")
             }
         } catch {
-            #expect(Bool(false), "Expected MCP.Error")
+            #expect(Bool(false), "Expected AethernityMCP.Error")
         }
     }
 
@@ -118,7 +118,7 @@ struct ClientTests {
                 #expect(Bool(false), "Expected transport error")
             }
         } catch {
-            #expect(Bool(false), "Expected MCP.Error")
+            #expect(Bool(false), "Expected AethernityMCP.Error")
         }
     }
 }

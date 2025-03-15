@@ -1,7 +1,7 @@
 import Foundation
 import Logging
 
-@testable import MCP
+@testable import AethernityMCP
 
 /// Mock transport for testing
 actor MockTransport: Transport {
@@ -50,7 +50,7 @@ actor MockTransport: Transport {
         }
     }
 
-    func queueRequest<M: MCP.Method>(_ request: Request<M>) throws {
+    func queueRequest<M: AethernityMCP.Method>(_ request: Request<M>) throws {
         let data = try JSONEncoder().encode(request)
         let str = String(data: data, encoding: .utf8)!
         if let continuation = messageStreamContinuation {
@@ -60,7 +60,7 @@ actor MockTransport: Transport {
         }
     }
 
-    func queueResponse<M: MCP.Method>(_ response: Response<M>) throws {
+    func queueResponse<M: AethernityMCP.Method>(_ response: Response<M>) throws {
         let data = try JSONEncoder().encode(response)
         let str = String(data: data, encoding: .utf8)!
         if let continuation = messageStreamContinuation {
@@ -70,7 +70,7 @@ actor MockTransport: Transport {
         }
     }
 
-    func queueNotification<N: MCP.Notification>(_ notification: Message<N>) throws {
+    func queueNotification<N: AethernityMCP.Notification>(_ notification: Message<N>) throws {
         let data = try JSONEncoder().encode(notification)
         let str = String(data: data, encoding: .utf8)!
         if let continuation = messageStreamContinuation {

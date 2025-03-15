@@ -3,7 +3,7 @@ import Logging
 import SystemPackage
 import Testing
 
-@testable import MCP
+@testable import AethernityMCP
 
 @Suite("Roundtrip Tests")
 struct RoundtripTests {
