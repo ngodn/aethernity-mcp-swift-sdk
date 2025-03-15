@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "aethernity-mcp-swift-sdk",
     platforms: [
-        .macOS(.v14),
-        .iOS(.v17),
+        .macOS(.v15),
+        .iOS(.v18),
         // Linux is supported natively without platform restrictions
     ],
     products: [
