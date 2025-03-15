@@ -2,6 +2,8 @@
 
 Swift implementation of the [Model Context Protocol][mcp] (MCP).
 
+> [!TIP]
+> To see it in action, check out the [Aequify](https://aequify.gg).
 
 ## Requirements
 
